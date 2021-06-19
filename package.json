@@ -1,0 +1,19 @@
+{
+  "name": "employeedatabase",
+  "version": "1.0.0",
+  "description": "A web application where a user can create, edit, update, and delete an employee from a database. This project\r was built to understand how to use MySQL with modern technologies such as React.js.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlanGarc1a/EmployeeDatabase.git"
+  },
+  "author": "Alan Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlanGarc1a/EmployeeDatabase/issues"
+  },
+  "homepage": "https://github.com/AlanGarc1a/EmployeeDatabase#readme"
+}
