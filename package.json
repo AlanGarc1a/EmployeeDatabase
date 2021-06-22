@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/AlanGarc1a/EmployeeDatabase/issues"
   },
-  "homepage": "https://github.com/AlanGarc1a/EmployeeDatabase#readme"
+  "homepage": "https://github.com/AlanGarc1a/EmployeeDatabase#readme",
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "express.js": "^1.0.0",
+    "mysql2": "^2.2.5"
+  }
 }
