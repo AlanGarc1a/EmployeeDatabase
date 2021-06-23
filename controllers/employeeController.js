@@ -6,10 +6,24 @@ const connection = require('../config/connection');
 /* 
 *   Object controller for employee routes
 *
+*   @getEmployees: gets all employees from the mysql database
 *   @createEmployee: adds a new employee to the mysql database
 *
 */
 module.exports = {
+
+    getEmployees: (req, res) => {
+        const ALL_EMPLOYEES_QUERY = `SELECT * FROM employee`;
+
+        connection.query(ALL_EMPLOYEES_QUERY, (err, results) => {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                res.status(200).json(results);
+            }
+        });
+    },
     createEmployee: (req, res) => {
         const { firstName, lastName, age, gender, birthday, job } = req.body;
 
@@ -21,5 +35,4 @@ module.exports = {
 
         res.status(200).json({msg: "Created employee"});
     }
-
 }
