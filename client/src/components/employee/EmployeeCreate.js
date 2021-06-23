@@ -17,7 +17,7 @@ const EmployeeCreate = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [age, setAge] = useState(0);
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState('Male');
     const [birthday, setBirthday] = useState('');
     const [job, setJob] = useState('');
 
@@ -90,7 +90,6 @@ const EmployeeCreate = () => {
 
             try {
                 const res = await axios.post('http://localhost:5000/api/create', newEmployee);
-
                 if(res.status === 200) {
                     setRedirect(true);
                 }
@@ -101,7 +100,7 @@ const EmployeeCreate = () => {
     }
 
     if (redirect) {
-        <Redirect to="/" />
+        return <Redirect to="/" />
     }
 
     return (
