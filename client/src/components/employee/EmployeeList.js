@@ -19,7 +19,11 @@ const Employee = ({id, firstName, lastName, age, gender, birthday, job}) => {
                         <ListGroup.Item>Gender: {gender}</ListGroup.Item>
                         <ListGroup.Item>Birthday: {birthday}</ListGroup.Item>
                     </ListGroup>
-                    <Button variant="primary" className="mr-3">Edit</Button>
+                    <Button variant="primary" className="mr-3">
+                        <Link to={`/edit/${id}`} className="text-white">
+                            Edit
+                        </Link>
+                    </Button>
                     <Button variant="primary">
                         <Link to={`/employee/${id}`} className="text-white">
                             View
