@@ -5,11 +5,11 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Employee = ({firstName, lastName, age, gender, birthday, job}) => {
+const Employee = ({id, firstName, lastName, age, gender, birthday, job}) => {
     return (
-        <Col className="mt-5">
             <Card style={{ width: '18rem' }}>
                 <Card.Body>
                     <Card.Title>{firstName} {lastName}</Card.Title>
@@ -20,10 +20,13 @@ const Employee = ({firstName, lastName, age, gender, birthday, job}) => {
                         <ListGroup.Item>Birthday: {birthday}</ListGroup.Item>
                     </ListGroup>
                     <Button variant="primary" className="mr-3">Edit</Button>
-                    <Button variant="primary">View</Button>
+                    <Button variant="primary">
+                        <Link to={`/employee/${id}`} className="text-white">
+                            View
+                        </Link>
+                    </Button>
                 </Card.Body>
             </Card>
-        </Col>
     )
 }
 
@@ -43,9 +46,11 @@ const EmployeeList = () => {
     return (
         <Container>
             <Row>
-                {employees.map( employee => {
-                    return <Employee 
-                                key={employee.id}
+                {employees.map( (employee) => {
+                    return (
+                    <Col className="mt-5" key={employee.id}> 
+                        <Employee 
+                                id={employee.id}
                                 firstName={employee.first_name}
                                 lastName={employee.last_name}
                                 age={employee.age}
@@ -53,6 +58,8 @@ const EmployeeList = () => {
                                 birthday={employee.birthday}
                                 job={employee.job} 
                             />
+                    </Col>
+                )
                 })}
             </Row>
         </Container>
