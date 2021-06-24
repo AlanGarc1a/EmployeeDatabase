@@ -18,4 +18,6 @@ router.get('/', employeeController.getEmployees);
 
 router.post('/create', employeeController.createEmployee);
 
+router.get('/:id', employeeController.getEmployeeById);
+
 module.exports = router;
