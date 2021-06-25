@@ -9,7 +9,7 @@ const connection = require('../config/connection');
 *   @getEmployees: gets all employees from the mysql database
 *   @createEmployee: adds a new employee to the mysql database
 *   @getEmployeeById: get an employee with the matching id from the database
-*
+*   @updateEmployee: update an employee with the matching id
 */
 module.exports = {
 
@@ -48,5 +48,19 @@ module.exports = {
             
             res.status(200).json(results[0]);
         });
+    },
+    updateEmployee: (req, res) => {
+        const { id } = req.params;
+        const { firstName, lastName, age, gender, birthday, job } = req.body;
+
+        const UPDATE_EMPLOYEE_QUERY = `UPDATE employee SET first_name= ?, last_name= ?, age= ?, gender= ?, birthday= ?, job= ? WHERE id = ${id}`;
+
+        connection.query(UPDATE_EMPLOYEE_QUERY, [firstName, lastName, age, gender, birthday, job], (err, results) => {
+            if(err) {
+                console.log(err);
+            }
+
+            res.status(200).json(results);
+        })
     }
 }
