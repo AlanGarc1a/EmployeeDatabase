@@ -10,6 +10,7 @@ const connection = require('../config/connection');
 *   @createEmployee: adds a new employee to the mysql database
 *   @getEmployeeById: get an employee with the matching id from the database
 *   @updateEmployee: update an employee with the matching id
+*   @deleteEmployee: deletes an employee with the matching id
 */
 module.exports = {
 
@@ -53,7 +54,9 @@ module.exports = {
         const { id } = req.params;
         const { firstName, lastName, age, gender, birthday, job } = req.body;
 
-        const UPDATE_EMPLOYEE_QUERY = `UPDATE employee SET first_name= ?, last_name= ?, age= ?, gender= ?, birthday= ?, job= ? WHERE id = ${id}`;
+        const UPDATE_EMPLOYEE_QUERY = `UPDATE employee 
+                                            SET first_name= ?, last_name= ?, age= ?, gender= ?, birthday= ?, job= ? 
+                                        WHERE id = ${id}`;
 
         connection.query(UPDATE_EMPLOYEE_QUERY, [firstName, lastName, age, gender, birthday, job], (err, results) => {
             if(err) {
@@ -62,5 +65,16 @@ module.exports = {
 
             res.status(200).json(results);
         })
+    },
+    deleteEmployee: (req, res) => {
+        const { id } = req.params;
+
+        const DELETE_EMPLOYEE_QUERY = `DELETE FROM employee WHERE id=${id}`;
+
+        connection.query(DELETE_EMPLOYEE_QUERY, (err, results) => {
+            if(err) console.log(err);
+
+            res.status(200).json(results);
+        });
     }
 }
