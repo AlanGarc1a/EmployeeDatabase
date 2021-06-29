@@ -92,10 +92,10 @@ const EmployeeEdit = () => {
 
             try {
                 const res = await axios.put(`http://localhost:5000/api/update/${id}`, newEmployee);
-                if(res.status === 200) {
+                if (res.status === 200) {
                     setRedirect(true);
                 }
-            } catch(error) {
+            } catch (error) {
                 throw new Error('Error Creating Employee');
             }
         }
@@ -109,7 +109,7 @@ const EmployeeEdit = () => {
         }
 
         fetchEmployee();
-    },[id]);
+    }, [id]);
 
     if(redirect) {
         return <Redirect to="/" />
@@ -168,7 +168,7 @@ const EmployeeEdit = () => {
                     <Button type="submit" variant="info" className="mr-4 mt-5">
                         Update
                     </Button>
-                    <Button variant="secondary" className="mt-5">
+                    <Button variant="secondary" className="mt-5 mr-4">
                         <Link to="/" className="text-white">
                             Cancel
                         </Link>
