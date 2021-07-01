@@ -5,7 +5,7 @@ was built to understand how to use MySQL with modern technologies such as React.
 
 # Motivation
 
-Creating a full stack application 
+Creating a full stack application using MySQL as the database and Node.js to communicate with it.
 
 # Installation 
 
