@@ -19,7 +19,7 @@ To run the application you will need to:
 
 * Create a ```.env``` file and store all database connection information or any other environment variables that will change
 
-* Install dependencies for both client and server using ```npm install``
+* Install dependencies for both client and server using ```npm install```
 
 # Project Structure
 
