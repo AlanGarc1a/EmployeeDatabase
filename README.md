@@ -21,6 +21,10 @@ To run the application you will need to:
 
 * Install dependencies for both client and server using ```npm install```
 
+# API
+
+![image](https://user-images.githubusercontent.com/32556354/129489126-95e071bc-98b9-4fd2-ba9c-f5a8f5b81031.png)
+
 # Project Structure
 
 ```
