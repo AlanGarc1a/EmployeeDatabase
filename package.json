@@ -18,6 +18,7 @@
   "homepage": "https://github.com/AlanGarc1a/EmployeeDatabase#readme",
   "devDependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express.js": "^1.0.0",
     "mysql2": "^2.2.5"
   }
