@@ -1,11 +1,25 @@
 # EmployeeDatabase
 
-A web application where a user can create, edit, update, and delete an employee from a database. This project
-was built to understand how to use MySQL with modern technologies such as React.js.
+A web application where a user can create, edit, update, and delete an employee from a database.
 
 # Motivation
 
-Creating a full stack application using MySQL as the database and Node.js to communicate with it.
+Create a web application using PostgresSQL as the database and Node.js to communicate with it.
+
+# Technologies
+Front end
+ * React.js
+ * Bootstrap 4
+ * axios 
+
+Back end
+ * Node.js
+ * PostgresSQL
+
+
+# Entity Relational Diagram
+![image](https://user-images.githubusercontent.com/32556354/133638745-8c97d441-bb92-41a5-9d9e-c8510ff976f8.png)
+
 
 # Installation 
 
@@ -17,13 +31,14 @@ To run the application you will need to:
     https://github.com/AlanGarc1a/EmployeeDatabase.git
 ```
 
-* Create a ```.env``` file and store all database connection information or any other environment variables that will change
+* Create a ```.env``` file and store all your environment variables there.
 
-* Install dependencies for both client and server using ```npm install```
-
-# API
-
-![image](https://user-images.githubusercontent.com/32556354/129489126-95e071bc-98b9-4fd2-ba9c-f5a8f5b81031.png)
+```
+$ cd client
+$ npm install
+$ cd ..
+$ npm install
+```
 
 # Project Structure
 
@@ -56,12 +71,3 @@ To run the application you will need to:
  ┗ 📜employeeRoutes.js      
 
 ```
-
-# Technologies
-
-* React.js - Javascript library for building user interfaces
-* Node.js - For back end API services
-* Bootstrap - styling library
-* mysql2 - module to connect to MySQL
-* MySQL - Database
-* axios - http requests
