@@ -1,6 +1,15 @@
 require('dotenv').config()
 const express = require('express');
 const cors    = require('cors');
+const db      = require('./config/db');
+
+db.authenticate()
+         .then(res => {
+             console.log('Connection established');
+         })
+         .catch( error => {
+             console.log('Error in connection to postgres db');
+         });
 
 const app = express();
 
