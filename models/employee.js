@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/pool');
+const db = require('../config/db');
 
-const Employee = sequelize.define('Employee', {
+const Employee = db.define('employee', {
     firstName: {
         type: DataTypes.STRING(50),
         allowNull: false
@@ -19,13 +19,13 @@ const Employee = sequelize.define('Employee', {
         allowNull: false
     },
     birthday: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(15),
         allowNull: false
     },
     salary: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-});
+}, {timestamps: false, createdAt: false, updatedAt: false,});
 
 module.exports = Employee;
