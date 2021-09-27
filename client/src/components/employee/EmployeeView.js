@@ -4,8 +4,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Link, Redirect } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { Link, Redirect, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const centerEmployee = {
@@ -22,7 +21,8 @@ const EmployeeView = () => {
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
     const [birthday, setBirthday] = useState('');
-    const [job, setJob] = useState('');
+    const [department, setDepartment] = useState('');
+    const [project, setProject] = useState('');
 
     const [redirect, setRedirect] = useState(false);
     const [showModal, setModal] = useState(false);
@@ -39,14 +39,14 @@ const EmployeeView = () => {
 
     const deleteEmployee = async () => {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/delete/${id}`);
+            const res = await axios.delete(`/api/employee/delete/${id}`);
 
             if (res.status === 200) {
                 setRedirect(true);
                 setModal(false);
             }
         } catch (err) {
-            console.log(err);
+            console.log(err.response);
         }
     }
 
@@ -61,7 +61,8 @@ const EmployeeView = () => {
                         <ListGroup.Item>Age: {age}</ListGroup.Item>
                         <ListGroup.Item>gender: {gender}</ListGroup.Item>
                         <ListGroup.Item>birthday: {birthday}</ListGroup.Item>
-                        <ListGroup.Item>job: {job}</ListGroup.Item>
+                        <ListGroup.Item>department: {department}</ListGroup.Item>
+                        <ListGroup.Item>Project: {project}</ListGroup.Item>
                     </ListGroup>
                 </Modal.Body>
                 <Modal.Footer>
@@ -76,20 +77,31 @@ const EmployeeView = () => {
         )
     }
 
-    const fetchEmployee = async () => {
-        const res = await axios.get(`http://localhost:5000/api/${id}`);
-
-        setFirstName(res.data.first_name);
-        setLastName(res.data.last_name);
-        setAge(res.data.age);
-        setGender(res.data.gender);
-        setBirthday(res.data.birthday);
-        setJob(res.data.job);
-    }
-
     useEffect(() => {
+        const fetchEmployee = async () => {
+            try {
+                const res = await axios.get(`/api/employee/${id}`);
+                console.log(res);
+    
+                if(res.status === 200) {
+                    setFirstName(res.data.firstName);
+                    setLastName(res.data.lastName);
+                    setAge(res.data.age);
+                    setGender(res.data.gender);
+                    setBirthday(res.data.birthday);
+                    setDepartment(res.data.department.name);
+                    setProject(res.data.project.name);
+                }
+    
+            } catch(error) {
+                console.log(error.response);
+            }
+        }
+        
         fetchEmployee();
-    });
+
+        return () => { fetchEmployee(); }
+    },[id]);
 
     if (redirect) {
         return <Redirect to="/" />
@@ -106,7 +118,8 @@ const EmployeeView = () => {
                             <ListGroup.Item>Gender: {gender}</ListGroup.Item>
                             <ListGroup.Item>Age: {age}</ListGroup.Item>
                             <ListGroup.Item>Birthday: {birthday}</ListGroup.Item>
-                            <ListGroup.Item>Job: {job}</ListGroup.Item>
+                            <ListGroup.Item>Department: {department}</ListGroup.Item>
+                            <ListGroup.Item>Project: {project}</ListGroup.Item>
                         </ListGroup>
                         <Card.Body>
                             <Link to="/">
