@@ -19,13 +19,17 @@ const EmployeeEdit = () => {
     const [age, setAge] = useState(0);
     const [gender, setGender] = useState('Male');
     const [birthday, setBirthday] = useState('');
-    const [job, setJob] = useState('');
+    const [salary, setSalary] = useState('');
+    const [department, setDepartment] = useState('');
+    const [project, setProject] = useState('');
 
     const [firstNameError, setFirstNameError] = useState(false);
     const [LastNameError, setLastNameError] = useState(false);
     const [ageError, setAgeError] = useState(false);
     const [birthdayError, setBirthdayError] = useState(false);
-    const [jobError, setJobError] = useState(false);
+    const [salaryError, setSalaryError] = useState(false);
+    const [departmentError, setDepartmentError] = useState(false);
+    const [projectError, setProjectError] = useState(false);
     const [redirect, setRedirect] = useState(false);
 
     const { id } = useParams();
@@ -55,30 +59,46 @@ const EmployeeEdit = () => {
         setBirthday(event.target.value);
     }
 
-    const onJobHandler = (event) => {
+    const onSalaryHandler = (event) => {
         event.persist();
-        setJob(event.target.value);
+        setSalary(event.target.value);
+    }
+
+    const onDepartmentHandler = (event) => {
+        event.persist();
+        setDepartment(event.target.value);
+    }
+
+    const onProjectHandler = (event) => {
+        event.persist();
+        setProject(event.target.value);
     }
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
 
-        var pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
 
         if (firstName === '') {
             setFirstNameError(true);
         }
-        if (lastName === '') {
+        else if (lastName === '') {
             setLastNameError(true);
         }
-        if (age < 0) {
+        else if (age < 0) {
             setAgeError(true);
         }
-        if (!pattern.test(birthday)) {
+        else if (!pattern.test(birthday)) {
             setBirthdayError(true);
         }
-        if (job === '') {
-            setJobError(true);
+        else if (salary === '') {
+            setSalaryError(true);
+        }
+        else if(department === '') {
+            setDepartmentError(true);
+        }
+        else if(project === '') {
+            setProjectError(true);
         }
         else {
             const newEmployee = {
@@ -87,27 +107,35 @@ const EmployeeEdit = () => {
                 age,
                 gender,
                 birthday,
-                job
+                salary,
+                department,
+                project
             }
 
             try {
-                const res = await axios.put(`http://localhost:5000/api/update/${id}`, newEmployee);
+                const res = await axios.put(`/api/employee/update/${id}`, newEmployee);
                 if (res.status === 200) {
                     setRedirect(true);
                 }
             } catch (error) {
-                throw new Error('Error Creating Employee');
+                console.log(error.response);
             }
         }
     }
 
     useEffect(() => {
         const fetchEmployee = async () => {
-            const res = await axios.get(`http://localhost:5000/api/${id}`);
-            setFirstName(res.data.first_name);
-            setLastName(res.data.last_name);
+            const res = await axios.get(`/api/employee/${id}`);
+            setFirstName(res.data.firstName);
+            setLastName(res.data.lastName);
+            setAge(res.data.age);
+            setBirthday(res.data.birthday);
+            setGender(res.data.gender);
+            setSalary(res.data.salary);
+            setDepartment(res.data.department.name);
+            setProject(res.data.project.name);
         }
-
+        
         fetchEmployee();
     }, [id]);
 
@@ -146,7 +174,7 @@ const EmployeeEdit = () => {
                             <Form.Control as="select" value={gender} placeholder="Gender" onChange={onGenderHandler}>
                                 <option>Male</option>
                                 <option>Female</option>
-                                <option>Other</option>
+                                <option>NonBinary</option>
                             </Form.Control>
                         </Form.Group>
                     </Form.Row>
@@ -154,21 +182,35 @@ const EmployeeEdit = () => {
                     <Form.Row>
                         <Form.Group className="mr-5">
                             <Form.Label>Birthday: </Form.Label>
-                            <Form.Control type="text" placeholder="Birthday" isInvalid={birthdayError} value={birthday} onChange={onBirthdayHandler} />
+                            <Form.Control type="date" placeholder="Birthday" isInvalid={birthdayError} value={birthday} onChange={onBirthdayHandler} />
                             <Form.Control.Feedback type="invalid">Please enter a birthday in mm/dd/yyyy</Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label>Job: </Form.Label>
-                            <Form.Control type="text" placeholder="Job" isInvalid={jobError} value={job} onChange={onJobHandler} />
-                            <Form.Control.Feedback type="invalid">Please enter a job</Form.Control.Feedback>
+                            <Form.Label>Salary: </Form.Label>
+                            <Form.Control type="text" placeholder="salary" isInvalid={salaryError} value={salary} onChange={onSalaryHandler} />
+                            <Form.Control.Feedback type="invalid">Please enter a salary</Form.Control.Feedback>
+                        </Form.Group>
+                    </Form.Row>
+
+                    <Form.Row>
+                        <Form.Group colum='sm' className="mr-5">
+                            <Form.Label>Department:</Form.Label>
+                            <Form.Control type="text" placeholder="department" isInvalid={departmentError} value={department} onChange={onDepartmentHandler} />
+                            <Form.Control.Feedback type="invalid">Please enter a Department</Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group colum='sm' className="mr-5">
+                            <Form.Label>Project:</Form.Label>
+                            <Form.Control type="text" placeholder="project" isInvalid={projectError} value={project} onChange={onProjectHandler} />
+                            <Form.Control.Feedback type="invalid">Please enter a Project</Form.Control.Feedback>
                         </Form.Group>
                     </Form.Row>
 
                     <Button type="submit" variant="info" className="mr-4 mt-5">
                         Update
                     </Button>
-                    <Button variant="secondary" className="mt-5 mr-4">
+                    <Button variant="secondary" className="mt-5">
                         <Link to="/" className="text-white">
                             Cancel
                         </Link>
